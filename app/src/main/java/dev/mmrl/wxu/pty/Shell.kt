@@ -85,6 +85,11 @@ class Shell : WXInterface {
         shell.resize(cols, rows)
     }
 
+    @get:JavascriptInterface
+    val version get(): Int {
+        return BuildConfig.COMMIT_COUNT
+    }
+
     override fun onActivityDestroy() {
         super.onActivityDestroy()
         shell.kill()
