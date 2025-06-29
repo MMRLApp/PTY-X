@@ -6,6 +6,9 @@ A Pseudoterminal built for WebUI X
 
 Install the APK from GitHub Releases and paste the following into a choosen module. Or use the new Plugin editor in WebUI X: Portable
 
+> [!IMPORTANT]
+> This plugin requires at least WebUI X: Portable `v130`!
+
 `/data/adb/.config/<ID>/config.webroot.json`
 
 ```jsonc
