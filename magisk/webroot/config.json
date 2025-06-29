@@ -1,0 +1,14 @@
+{
+    "windowResize": true,
+    "backHandler": true,
+    "backInterceptor": "javascript",
+    "exitConfirm": false,
+    "dexFiles": [
+        {
+            "type": "apk",
+            "path": "dev.mmrl.wxu.pty",
+            "className": "dev.mmrl.wxu.pty.Shell",
+            "cache": true
+        }
+    ]
+}
