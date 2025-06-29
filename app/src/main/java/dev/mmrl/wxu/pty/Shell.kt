@@ -44,7 +44,7 @@ class Shell : WXInterface {
     }
 
     @JavascriptInterface
-    fun start(sh: String, argsJson: String, envJson: String, currentCols: Int, currentRows: Int) {
+    fun start(sh: String, argsJson: String, envJson: String, cols: Int, rows: Int) {
         var args = emptyArray<String>()
         var env = emptyArray<String>()
 
@@ -60,7 +60,7 @@ class Shell : WXInterface {
             console.error("Invalid env JSON: $envJson")
         }
 
-        shell.start(sh, args, env, currentCols, currentRows)
+        shell.start(sh, args, env, cols, rows)
     }
 
     @JavascriptInterface
