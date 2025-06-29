@@ -83,6 +83,6 @@ window.addEventListener("load", () => {
   window.pty.start("/system/bin/su", args, env);
 
   // Alternative if you want it raw
-  // window.pty.start("/system/bin/su", null. null);
+  // window.pty.start("/system/bin/su", null, null);
 });
 ```
