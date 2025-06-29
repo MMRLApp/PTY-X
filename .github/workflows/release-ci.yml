@@ -79,7 +79,7 @@ jobs:
             path: app/build/outputs/apk/release/*.apk
 
   release:
-    name: Release on Telegram or GitHub
+    name: Release on GitHub
     runs-on: ubuntu-latest
     needs: [ build ]
     steps:
