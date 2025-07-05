@@ -7,6 +7,7 @@ on:
         type: string
         description: 'Path to the Magisk module directory (must contain module.prop)'
         required: true
+        default: 'magisk'
       exclude:
         type: string
         description: 'File pattern(s) to exclude inside the module (space separated)'
