@@ -1,7 +1,7 @@
 name: 'Bundle Magisk Module'
 
 on: 
-  workflow_call:
+  workflow_dispatch:
     inputs:
       directory:
         type: string
@@ -63,3 +63,10 @@ jobs:
           fi
 
           echo "path=$zipname" >> "$GITHUB_OUTPUT"
+
+        
+      - name: Upload module artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: magisk-module
+          path: ${{ steps.bundle.outputs.path }}
