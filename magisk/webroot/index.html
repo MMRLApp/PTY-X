@@ -81,12 +81,11 @@
             const env = JSON.stringify({
                 PWD: "$(pwd)",
                 PLATFORM: process.platform(),
-                ENV: `${module.getWebRootDir()}/.env`,
+                ENV: `${module.getWebRootDir()}/util/mkshrc`,
                 PATH: "/data/adb/ksu/bin:/data/adb/ap/bin:/data/adb/magisk:/system/bin:/sbin:/vendor/bin:/system/sbin:/system/xbin:/system/product/bin:/system/system_ext/bin"
             })
 
             let shell = "/system/bin/su";
-
 
             if (process.platform() == "NonRoot") {
                 shell = "/syste/bin/sh"

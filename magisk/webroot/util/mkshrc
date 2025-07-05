@@ -1,0 +1,8 @@
+export USER=$(id -un)
+export USERID=$(id -u)
+export HOSTNAME=$(uname -n)
+
+if ((USER_ID)); then MODE_PS1='$'; else MODE_PS1='#'; fi
+PS1=$'\e[35m┌\e[0m\e[92m$USER@$HOSTNAME\e[0m:\e[38;5;33m${PWD:-?}\e[0m\n\e[35m└─\e[0m$MODE_PS1 '
+
+export PATH="/data/data/com.termux/files/usr/bin:$PATH"
