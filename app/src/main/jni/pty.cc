@@ -39,7 +39,7 @@ void notify_exit(JNIEnv* env, int exitCode) {
 }
 
 extern "C" JNIEXPORT jlong JNICALL
-Java_dev_mmrl_wxu_pty_PtyImpl_nativeStart(JNIEnv *env, jobject thiz,
+Java_dev_mmrl_wxu_pty_Pty_nativeStart(JNIEnv *env, jobject thiz,
                                 jstring shell, jobjectArray args,
                                 jobjectArray env_vars,
                                 jint cols, jint rows) {
@@ -133,7 +133,7 @@ Java_dev_mmrl_wxu_pty_PtyImpl_nativeStart(JNIEnv *env, jobject thiz,
 }
 
 extern "C" JNIEXPORT void JNICALL
-Java_dev_mmrl_wxu_pty_PtyImpl_nativeResize(JNIEnv *env, jobject thiz, jlong handle, jint cols, jint rows) {
+Java_dev_mmrl_wxu_pty_Instance_nativeResize(JNIEnv *env, jobject thiz, jlong handle, jint cols, jint rows) {
     auto* instance = (PtyInstance*)handle;
     if (!instance || !instance->running) return;
 
@@ -142,7 +142,7 @@ Java_dev_mmrl_wxu_pty_PtyImpl_nativeResize(JNIEnv *env, jobject thiz, jlong hand
 }
 
 extern "C" JNIEXPORT void JNICALL
-Java_dev_mmrl_wxu_pty_PtyImpl_nativeWrite(JNIEnv *env, jobject thiz, jlong handle, jbyteArray data) {
+Java_dev_mmrl_wxu_pty_Instance_nativeWrite(JNIEnv *env, jobject thiz, jlong handle, jbyteArray data) {
     auto* instance = (PtyInstance*)handle;
     if (!instance || !instance->running) return;
 
@@ -153,7 +153,7 @@ Java_dev_mmrl_wxu_pty_PtyImpl_nativeWrite(JNIEnv *env, jobject thiz, jlong handl
 }
 
 extern "C" JNIEXPORT void JNICALL
-Java_dev_mmrl_wxu_pty_PtyImpl_nativeKill(JNIEnv *env, jobject thiz, jlong handle) {
+Java_dev_mmrl_wxu_pty_Instance_nativeKill(JNIEnv *env, jobject thiz, jlong handle) {
     auto* instance = (PtyInstance*)handle;
     if (!instance) return;
 
@@ -173,7 +173,7 @@ Java_dev_mmrl_wxu_pty_PtyImpl_nativeKill(JNIEnv *env, jobject thiz, jlong handle
 }
 
 extern "C" JNIEXPORT void JNICALL
-Java_dev_mmrl_wxu_pty_PtyImpl_nativeSetEventListener(JNIEnv *env, jobject thiz, jobject listener) {
+Java_dev_mmrl_wxu_pty_Pty_nativeSetEventListener(JNIEnv *env, jobject thiz, jobject listener) {
     if (eventListener) {
         env->DeleteGlobalRef(eventListener);
     }

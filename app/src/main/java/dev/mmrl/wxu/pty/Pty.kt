@@ -7,44 +7,44 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 
-class Shell : WXInterface {
-    private var shell: Pty
+class Pty : WXInterface {
+    private var nativeHandle: Long = 0
+    private var instance: Instance? = null
     private var currentCols = 80
     private var currentRows = 24
 
     constructor(wxOptions: WXOptions) : super(wxOptions) {
-        val view = wxOptions.webView
         name = "pty"
 
-        val act = activity
-
-        shell = Pty.create(object : Pty.EventListener {
+        val listener = object : EventListener {
             override fun onData(data: ByteArray) {
-                act?.runOnUiThread {
+                activity?.runOnUiThread {
                     try {
                         val str = data.decodeToString()
-                        view.postWXEvent(EVENT_NAME_DATA, str)
+                        webView.postWXEvent(EVENT_NAME_DATA, str)
                     } catch (e: Exception) {
-                        view.postWXEvent(EVENT_NAME_DATA, data.toHexString())
+                        webView.postWXEvent(EVENT_NAME_DATA, data.toHexString())
                     }
                 }
             }
 
             override fun onExit(exitCode: Int) {
-                act?.runOnUiThread {
-                    view.postWXEvent(EVENT_NAME_EXIT, exitCode)
+                activity?.runOnUiThread {
+                    webView.postWXEvent(EVENT_NAME_EXIT, exitCode)
                 }
             }
-        })
+        }
+
+        nativeSetEventListener(listener)
     }
 
     @JavascriptInterface
-    fun start(sh: String, argsJson: String?, envJson: String?) {
-        start(sh, argsJson ?: "[]", envJson ?: "{}", currentCols, currentRows)
+    fun start(sh: String, argsJson: String?, envJson: String?): Instance? {
+        return start(sh, argsJson ?: "[]", envJson ?: "{}", currentCols, currentRows)
     }
 
     @JavascriptInterface
-    fun start(sh: String, argsJson: String, envJson: String, cols: Int, rows: Int) {
+    fun start(sh: String, argsJson: String, envJson: String, cols: Int, rows: Int): Instance? {
         var args = emptyArray<String>()
         var env = emptyArray<String>()
 
@@ -60,39 +60,39 @@ class Shell : WXInterface {
             console.error("Invalid env JSON: $envJson")
         }
 
-        shell.start(sh, args, env, cols, rows)
-    }
+        nativeHandle = nativeStart(
+            shell = sh,
+            args = args,
+            env = env,
+            cols = cols,
+            rows = rows
+        )
 
-    @JavascriptInterface
-    fun write(command: String) {
-        try {
-            shell.write(command.toByteArray(Charsets.UTF_8))
-        } catch (e: Exception) {
-            console.trace("Error writing to shell")
-            console.error(e)
-        }
-    }
+        instance = Instance(
+            nativeHandle = nativeHandle,
+            currentCols = cols,
+            currentRows = rows,
+            wxOptions = wxOptions
+        )
 
-    @JavascriptInterface
-    fun kill() {
-        shell.kill()
-    }
-
-    @JavascriptInterface
-    fun resize(cols: Int, rows: Int) {
-        currentCols = cols
-        currentRows = rows
-        shell.resize(cols, rows)
+        return instance
     }
 
     @get:JavascriptInterface
-    val version get(): Int {
-        return BuildConfig.COMMIT_COUNT
+    val version
+        get(): Int {
+            return BuildConfig.COMMIT_COUNT
+        }
+
+    interface EventListener {
+        fun onData(data: ByteArray)
+
+        fun onExit(exitCode: Int)
     }
 
     override fun onActivityDestroy() {
         super.onActivityDestroy()
-        shell.kill()
+        instance?.kill()
     }
 
     // Helper function for binary data fallback
@@ -139,8 +139,24 @@ class Shell : WXInterface {
         return list.toTypedArray()
     }
 
-    private companion object {
+    private external fun nativeStart(
+        shell: String,
+        args: Array<String>,
+        env: Array<String>,
+        cols: Int,
+        rows: Int,
+    ): Long
+
+    private external fun nativeSetEventListener(listener: EventListener)
+
+    companion object {
         const val EVENT_NAME_DATA = "pty-data"
         const val EVENT_NAME_EXIT = "pty-exit"
+        const val DEFAULT_COLS = 80
+        const val DEFAULT_ROWS = 24
+
+        init {
+            System.loadLibrary("pty")
+        }
     }
 }
