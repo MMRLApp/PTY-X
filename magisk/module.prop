@@ -1,6 +1,6 @@
 id=wx_pty_x
 name=Pseudoterminal for WebUI X
-version=v2
-versionCode=2
+version=v3
+versionCode=3
 author=Der_Googler
 description=A Pseudoterminal built for WebUI X
