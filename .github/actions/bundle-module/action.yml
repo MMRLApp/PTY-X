@@ -12,6 +12,7 @@ inputs:
 
 outputs:
   path:
+    value: ${{ steps.bundle.outputs.path }}
     description: 'Absolute path to the generated zip file'
 
 runs:
