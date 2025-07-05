@@ -42,6 +42,7 @@ jobs:
 
           id=$(grep -E '^id=' module.prop | cut -d'=' -f2- | tr -d '\r\n')
           version=$(grep -E '^version=' module.prop | cut -d'=' -f2- | tr -d '\r\n')
+          versionCode=$(grep -E '^versionCode=' module.prop | cut -d'=' -f2- | tr -d '\r\n')
 
           if [[ -z "$id" || -z "$version" ]]; then
             echo "ERROR: module.prop missing id or version"
@@ -51,11 +52,11 @@ jobs:
           safe_id=$(echo "$id" | tr ' /' '__')
           safe_version=$(echo "$version" | tr ' /' '__')
 
-          zipname="${safe_id}-${safe_version}"
+          zipname="${safe_id}-${safe_version}-${versionCode}"
           echo "zipname=$zipname" >> "$GITHUB_OUTPUT"
 
           base_path=$(pwd)
-          zipname="${base_path}/${safe_id}-${safe_version}.zip"
+          zipname="${base_path}/${zipname}.zip"
 
           echo "Bundling module as $zipname"
 
