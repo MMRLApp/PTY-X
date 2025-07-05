@@ -51,6 +51,9 @@ jobs:
           safe_id=$(echo "$id" | tr ' /' '__')
           safe_version=$(echo "$version" | tr ' /' '__')
 
+          zipname="${safe_id}-${safe_version}"
+          echo "zipname=$zipname" >> "$GITHUB_OUTPUT"
+
           base_path=$(pwd)
           zipname="${base_path}/${safe_id}-${safe_version}.zip"
 
@@ -69,5 +72,5 @@ jobs:
       - name: Upload module artifact
         uses: actions/upload-artifact@v4
         with:
-          name: magisk-module
+          name: ${{ steps.bundle.outputs.zipname }}
           path: ${{ steps.bundle.outputs.path }}
