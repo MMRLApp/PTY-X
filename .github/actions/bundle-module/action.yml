@@ -12,8 +12,8 @@ inputs:
 
 outputs:
   path:
-    value: ${{ steps.bundle.outputs.path }}
     description: 'Absolute path to the generated zip file'
+    value: ${{ steps.bundle.outputs.path }}
 
 runs:
   using: "composite"
