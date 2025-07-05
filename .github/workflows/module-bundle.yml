@@ -1,0 +1,60 @@
+name: 'Bundle Magisk Module'
+
+on: 
+  workflow_call:
+    inputs:
+      directory:
+        type: string
+        description: 'Path to the Magisk module directory (must contain module.prop)'
+        required: true
+      exclude:
+        type: string
+        description: 'File pattern(s) to exclude inside the module (space separated)'
+        required: false
+        default: ''
+
+jobs:
+  build:
+    name: Build APK
+    runs-on: ubuntu-latest
+    outputs:
+      path: ${{ steps.bundle.outputs.path }}
+    steps:
+      - name: Verify module.prop exists
+        shell: bash
+        run: |
+          if [[ ! -f "${{ inputs.directory }}/module.prop" ]]; then
+            echo "ERROR: module.prop not found in ${{ inputs.directory }}"
+            exit 1
+          fi
+
+      - name: Read module id and version, zip module
+        id: bundle
+        shell: bash
+        run: |
+          cd "${{ inputs.directory }}"
+
+          id=$(grep -E '^id=' module.prop | cut -d'=' -f2- | tr -d '\r\n')
+          version=$(grep -E '^version=' module.prop | cut -d'=' -f2- | tr -d '\r\n')
+
+          if [[ -z "$id" || -z "$version" ]]; then
+            echo "ERROR: module.prop missing id or version"
+            exit 1
+          fi
+
+          safe_id=$(echo "$id" | tr ' /' '__')
+          safe_version=$(echo "$version" | tr ' /' '__')
+
+          base_path=$(pwd)
+          zipname="${base_path}/${safe_id}-${safe_version}.zip"
+
+          echo "Bundling module as $zipname"
+
+          exclude_pattern="${{ inputs.exclude }}"
+          if [[ -n "$exclude_pattern" ]]; then
+            zip -r "$zipname" . -x $exclude_pattern
+          else
+            zip -r "$zipname" .
+          fi
+
+          echo "path=$zipname" >> "$GITHUB_OUTPUT"

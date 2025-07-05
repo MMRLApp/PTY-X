@@ -12,7 +12,7 @@ jobs:
 
       - name: Bundle Magisk module
         id: mod
-        uses: ./.github/actions/module-bundle
+        uses: ./.github/workflows/module-bundle.yml
         with:
           directory: magisk
 
