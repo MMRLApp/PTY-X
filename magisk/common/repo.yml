@@ -1,0 +1,15 @@
+note:
+  title: PTY X Required
+  message: This module requires the PTY X module to be installed. And at least WebUI X v131 or later.
+arch:
+  - armeabi-v7a
+  - arm64-v8a
+  - x86
+  - x86_64
+license: GPL-3.0
+readme: https://raw.githubusercontent.com/MMRLApp/PTY-X/refs/heads/master/README.md
+categories:
+  - Utility
+  - Tools
+donate: https://github.com/sponsors/MMRLApp
+support: https://github.com/MMRLApp/PTY-X/issues

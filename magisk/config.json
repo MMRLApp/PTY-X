@@ -1,0 +1,25 @@
+{
+    "name": {
+        "en": "WebUI X Pseudo Terminal",
+        "en-US": "WebUI X Pseudo Terminal",
+        "zh-CN": "WebUI X 伪终端",
+        "zh-TW": "WebUI X 假終端",
+        "ja-JP": "WebUI X 擬似端末",
+        "ko-KR": "WebUI X 가상 터미널",
+        "fr-FR": "Terminal virtuel pour WebUI X",
+        "es-ES": "Terminal virtual para WebUI X",
+        "de-DE": "Pseudoterminal für WebUI X"
+    },
+    "description": {
+        "en": "A pseudo terminal for WebUI X",
+        "en-US": "A pseudo terminal for WebUI X",
+        "zh-CN": "WebUI X 的伪终端",
+        "zh-TW": "WebUI X 的假終端",
+        "ja-JP": "WebUI X の擬似端末",
+        "ko-KR": "WebUI X의 가상 터미널",
+        "fr-FR": "Un terminal virtuel pour WebUI X",
+        "es-ES": "Un terminal virtual para WebUI X",
+        "de-DE": "Ein Pseudoterminal für WebUI X"
+    },
+    "webui-engine": "wx"
+}
