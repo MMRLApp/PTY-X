@@ -62,12 +62,39 @@
 
         const rootStyles = getComputedStyle(document.documentElement);
 
-        if (typeof window["pty"] == "undefined") {
-            const msg = "Please make sure that you have PTY X installed on your device."
-            alert(msg)
-            webui.exit()
-            throw Error(msg)
-        }
+        window.addEventListener("load", () => {
+            if (typeof window["pty"] == "undefined") {
+                const msg = "Please make sure that you have PTY X installed on your device."
+                alert(msg)
+                webui.exit()
+                throw Error(msg)
+            }
+
+            if (typeof window["module"] == "undefined" || typeof window["process"] == "undefined") {
+                const msg = "The WXU Plugin was not found. Have you changed the plugins of this WebUI?"
+                alert(msg)
+                webui.exit()
+                throw Error(msg)
+            }
+
+            const args = JSON.stringify([])
+            const env = JSON.stringify({
+                PWD: "$(pwd)",
+                PLATFORM: process.platform(),
+                ENV: `${module.getWebRootDir()}/.env`,
+                PATH: "/data/adb/ksu/bin:/data/adb/ap/bin:/data/adb/magisk:/system/bin:/sbin:/vendor/bin:/system/sbin:/system/xbin:/system/product/bin:/system/system_ext/bin"
+            })
+
+            let shell = "/system/bin/su";
+
+
+            if (process.platform() == "NonRoot") {
+                shell = "/syste/bin/sh"
+            }
+
+            // Store the instance here
+            window.terminal = window.pty.start(shell, args, env)
+        })
 
         // Initialize terminal with addons
         const term = new Terminal({
@@ -106,13 +133,13 @@
             fitAddon.fit();
             const dims = term.proposeDimensions();
             if (dims) {
-                window.pty.resize(dims.cols, dims.rows);
+                window.terminal.resize(dims.cols, dims.rows);
             }
         });
 
         // Terminal input handling
         term.onData(data => {
-            window.pty.write(data);
+            window.terminal.write(data);
         });
 
         // Handle output from PTY
@@ -129,27 +156,18 @@
 
         // We handle ourself the back event
         wx.on(window, "back", (event) => {
-            window.pty.kill()
-            webui.exit()
+            const conf = confirm("Leave?\nAre you sure that you wanna leave?")
+
+            if (conf) {
+                // window.terminal.kill()
+                webui.exit()
+            }
         });
 
         // Error handling for WebGL
         webglAddon.onContextLoss(() => {
             webglAddon.dispose();
         });
-
-        window.addEventListener("load", () => {
-            const args = JSON.stringify([])
-            const env = JSON.stringify({
-                PWD: "$(pwd)",
-                MODE_PS1: '#',
-                USER: "$(id -un)",
-                HOSTNAME: "$(uname -n)",
-                PATH: "/data/adb/ksu/bin:/data/adb/ap/bin:/data/adb/magisk:/system/bin:/sbin:/vendor/bin:/system/sbin:/system/xbin:/system/product/bin:/system/system_ext/bin"
-            })
-
-            window.pty.start("/system/bin/su", args, env)
-        })
 
         function getColor(name) {
             return rootStyles.getPropertyValue(`--${name}`).trim();

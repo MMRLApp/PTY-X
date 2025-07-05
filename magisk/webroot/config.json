@@ -7,7 +7,19 @@
         {
             "type": "apk",
             "path": "dev.mmrl.wxu.pty",
-            "className": "dev.mmrl.wxu.pty.Shell",
+            "className": "dev.mmrl.wxu.pty.Pty",
+            "cache": true
+        },
+        {
+            "type": "dex",
+            "path": "plugins/wxu.dex",
+            "className": "dev.mmrl.Module",
+            "cache": true
+        },
+        {
+            "type": "dex",
+            "path": "plugins/wxu.dex",
+            "className": "dev.mmrl.Process",
             "cache": true
         }
     ]

@@ -1,0 +1,23 @@
+name: Build Magisk Module
+
+on:
+  workflow_dispatch:
+
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Bundle Magisk module
+        id: mod
+        uses: ./.github/actions/module-buddle
+        with:
+          directory: magisk
+
+      - name: Upload module artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: magisk-module
+          path: ${{ steps.mod.outputs.path }}
