@@ -1,4 +1,4 @@
-name: Build Magisk Module
+name: Module CI
 
 on:
   workflow_dispatch:
@@ -12,7 +12,7 @@ jobs:
 
       - name: Bundle Magisk module
         id: mod
-        uses: ./.github/actions/module-buddle
+        uses: ./.github/actions/module-bundle
         with:
           directory: magisk
 
