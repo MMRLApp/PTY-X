@@ -32,7 +32,7 @@ jobs:
             exit 1
           fi
 
-      - name: Read module id and version, zip module
+      - name: Read module id and version
         id: bundle
         shell: bash
         run: |
