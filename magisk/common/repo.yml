@@ -1,6 +1,6 @@
 note:
   title: PTY X Required
-  message: This module requires the PTY X module to be installed. And at least WebUI X v131 or later.
+  message: This module requires the PTY X App to be installed and at least requires WebUI X v131 or later.
 arch:
   - armeabi-v7a
   - arm64-v8a
