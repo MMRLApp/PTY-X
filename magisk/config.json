@@ -1,25 +1,25 @@
 {
     "name": {
-        "en": "WebUI X Pseudo Terminal",
-        "en-US": "WebUI X Pseudo Terminal",
-        "zh-CN": "WebUI X 伪终端",
-        "zh-TW": "WebUI X 假終端",
-        "ja-JP": "WebUI X 擬似端末",
-        "ko-KR": "WebUI X 가상 터미널",
-        "fr-FR": "Terminal virtuel pour WebUI X",
-        "es-ES": "Terminal virtual para WebUI X",
-        "de-DE": "Pseudoterminal für WebUI X"
+        "en": "[color=primary]WebUI X[/color] Pseudo Terminal",
+        "en-US": "[color=primary]WebUI X[/color] Pseudo Terminal",
+        "zh-CN": "[color=primary]WebUI X[/color] 伪终端",
+        "zh-TW": "[color=primary]WebUI X[/color] 假終端",
+        "ja-JP": "[color=primary]WebUI X[/color] 擬似端末",
+        "ko-KR": "[color=primary]WebUI X[/color] 가상 터미널",
+        "fr-FR": "[color=primary]WebUI X[/color] Terminal virtuel",
+        "es-ES": "[color=primary]WebUI X[/color] Terminal virtual",
+        "de-DE": "[color=primary]WebUI X[/color] Pseudoterminal"
     },
     "description": {
-        "en": "A pseudo terminal for WebUI X",
-        "en-US": "A pseudo terminal for WebUI X",
-        "zh-CN": "WebUI X 的伪终端",
-        "zh-TW": "WebUI X 的假終端",
-        "ja-JP": "WebUI X の擬似端末",
-        "ko-KR": "WebUI X의 가상 터미널",
-        "fr-FR": "Un terminal virtuel pour WebUI X",
-        "es-ES": "Un terminal virtual para WebUI X",
-        "de-DE": "Ein Pseudoterminal für WebUI X"
+        "en": "A pseudo terminal for [color=primary]WebUI X[/color]",
+        "en-US": "A pseudo terminal for [color=primary]WebUI X[/color]",
+        "zh-CN": "[color=primary]WebUI X[/color] 的伪终端",
+        "zh-TW": "[color=primary]WebUI X[/color] 的假終端",
+        "ja-JP": "[color=primary]WebUI X[/color] の擬似端末",
+        "ko-KR": "[color=primary]WebUI X[/color]의 가상 터미널",
+        "fr-FR": "Un terminal virtuel pour [color=primary]WebUI X[/color]",
+        "es-ES": "Un terminal virtual para [color=primary]WebUI X[/color]",
+        "de-DE": "Ein Pseudoterminal für [color=primary]WebUI X[/color]"
     },
     "webui-engine": "wx"
 }
